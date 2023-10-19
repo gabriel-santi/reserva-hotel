@@ -1,5 +1,6 @@
 import domain.Data;
 import domain.Hospede;
+import domain.Reserva;
 import exception.DataInvalidaException;
 import exception.EntradaInvalidaException;
 import exception.QuartoInexistenteException;
@@ -71,8 +72,8 @@ public class SistemaHotel extends InterfaceUI {
         }while(!nome.equals("0"));
 
         try {
-            gerenciadorDeReservas.fazerReservaQuarto(numQuarto, dataEntrada, dataSaida, hospedes);
-            printarReserva(numQuarto, dataEntrada, dataSaida, hospedes);
+            Reserva reservaCriada = gerenciadorDeReservas.fazerReservaQuarto(numQuarto, dataEntrada, dataSaida, hospedes);
+            printarReserva(numQuarto, dataEntrada, dataSaida, hospedes, reservaCriada.getValor());
         } catch (Exception e) {
             printar("\nNão foi possível efetuar a reserva: " + e.getMessage());
             fluxoAdicionarReserva();
@@ -97,6 +98,13 @@ public class SistemaHotel extends InterfaceUI {
         int numQuarto = solicitarNumeroQuarto();
         if (numQuarto == 0) return;
         String dataReserva = solicitarDataReserva();
+        try {
+            Reserva reserva = gerenciadorDeReservas.buscarReserva(numQuarto, dataReserva);
+            printar("\n-> Valor total da reserva: R$"+ reserva.getValor());
+        } catch (Exception e) {
+            printar(e.getMessage());
+            return ;
+        }
         printar("-> Informe o valor pago:");
         double valor = leitor.nextDouble();
         try {

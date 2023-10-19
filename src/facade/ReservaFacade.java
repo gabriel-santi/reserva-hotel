@@ -21,7 +21,7 @@ public class ReservaFacade {
         quartos = listaQuartos;
     }
 
-    public void fazerReservaQuarto(int numQuarto, String dataEntrada, String dataSaida, List<Hospede> hospedes) throws QuartoInexistenteException, DataInvalidaException, QuartoOcupadoException, DataInicialInvalidaException {
+    public Reserva fazerReservaQuarto(int numQuarto, String dataEntrada, String dataSaida, List<Hospede> hospedes) throws QuartoInexistenteException, DataInvalidaException, QuartoOcupadoException, DataInicialInvalidaException {
         Quarto quartoSelecionado = buscarQuarto(numQuarto);
         boolean quartoDisponivel = verificarDisponibilidade(numQuarto, dataEntrada, dataSaida);
 
@@ -29,6 +29,7 @@ public class ReservaFacade {
             Vigencia periodo = new Vigencia(dataEntrada, dataSaida);
             Reserva novaReserva = new Reserva(periodo, hospedes);
             quartoSelecionado.adicionarReserva(novaReserva);
+            return novaReserva;
         } else {
             throw new QuartoOcupadoException();
         }
@@ -72,7 +73,7 @@ public class ReservaFacade {
     }
 
     public Quarto buscarQuarto(int numQuarto) throws QuartoInexistenteException {
-        Quarto quartoSelecionado = null;
+        Quarto quartoSelecionado;
         for (Quarto quarto : quartos) {
             if (quarto.getNumeroQuarto() == numQuarto) {
                 quartoSelecionado = quarto;
@@ -80,5 +81,16 @@ public class ReservaFacade {
             }
         }
         throw new QuartoInexistenteException();
+    }
+
+    public Reserva buscarReserva(int numQuarto, String dataReserva) throws QuartoInexistenteException, DataInvalidaException, ReservaInexistenteException {
+        Quarto quartoSelecionado = buscarQuarto(numQuarto);
+        for(Reserva reserva: quartoSelecionado.getReservas()){
+            if(reserva.estaAtiva(new Data(dataReserva))){
+                return reserva;
+            }
+        }
+
+        throw new ReservaInexistenteException();
     }
 }
