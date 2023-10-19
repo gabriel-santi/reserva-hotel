@@ -10,7 +10,7 @@ public class Vigencia {
     public Vigencia(String dataInicio, String dataFinal) throws DataInvalidaException, DataInicialInvalidaException {
         this.dataInicio = new Data(dataInicio);
         this.dataFim = new Data(dataFinal);
-        if(this.dataInicio.dia.after(this.dataFim.dia)) throw new DataInicialInvalidaException();
+        if (this.dataInicio.dia.after(this.dataFim.dia)) throw new DataInicialInvalidaException();
     }
 
     boolean estaVigente(Vigencia periodo) {
@@ -23,6 +23,6 @@ public class Vigencia {
     }
 
     boolean estaVigente(Data data) {
-        return dataInicio.dia.before(data.dia) && dataFim.dia.after(data.dia);
+        return (dataInicio.dia.before(data.dia) && dataFim.dia.after(data.dia)) || dataInicio.dia.equals(data.dia) || dataFim.dia.equals(data.dia);
     }
 }
