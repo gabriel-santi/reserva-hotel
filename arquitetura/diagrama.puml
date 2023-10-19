@@ -1,0 +1,51 @@
+@startuml
+left to right direction
+
+package Dominio{
+    class ReservaFacade{
+        List<Quarto> quartos
+
+        void fazerReservaQuarto(int numQuarto, String dataEntrada, String dataSaida)
+        void cancelarReserva(int numQuarto)
+        void realizarPagamento(int numQuarto, double valor)
+        void verificarDisponibilidade(int numQuarto, String dataEntrada, String dataSaida)
+    }
+    ReservaFacade::quartos --> Quarto
+
+    class Quarto{
+        int numeroQuarto
+        List<Reserva> reservas
+    }
+    Quarto::reservas --> Reserva
+
+    class Reserva{
+        Vigencia vigencia
+        double valor
+        bool pago
+        List<Hospede> hospedes
+        bool cancelado
+
+        void realizarPagamento(double valor)
+        void cancelar()
+    }
+    Reserva::hospedes --> Hospede
+    Reserva::vigencia --> Vigencia
+
+    class Hospede{
+        String nome
+    }
+
+    class Vigencia{
+        Data dataEntrada
+        Data dataSaida
+
+        bool estaVigente(Vigencia periodo)
+    }
+    Vigencia::dataEntrada --> Data
+    Vigencia::dataSaida --> Data
+
+    class Data{
+        DateTime data
+    }
+}
+@enduml
