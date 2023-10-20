@@ -11,7 +11,7 @@ public class Data {
     public Data(String dia) throws DataInvalidaException {
         try {
             if(dia.length() > 10) throw new DataInvalidaException();
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             this.dia = formatter.parse(dia);
         }catch (java.text.ParseException e){
             throw new DataInvalidaException();

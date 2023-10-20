@@ -152,7 +152,7 @@ public class SistemaHotel extends InterfaceUI {
     }
 
     private String solicitarDataEntrada(){
-        printar("-> Informe a data da entrada no formato dd-mm-yyyy:");
+        printar("-> Informe a data da entrada no formato dd/mm/yyyy:");
         String dataEntrada = leitor.next();
 
         try{
@@ -166,7 +166,7 @@ public class SistemaHotel extends InterfaceUI {
     }
 
     private String solicitarDataSaida(){
-        printar("-> Informe a data de saída no formato dd-mm-yyyy:");
+        printar("-> Informe a data de saída no formato dd/mm/yyyy:");
         String dataSaida = leitor.next();
 
         try{
@@ -180,7 +180,7 @@ public class SistemaHotel extends InterfaceUI {
     }
 
     private String solicitarDataReserva(){
-        printar("-> Informe a data da reserva no formato dd-mm-yyyy:");
+        printar("-> Informe a data da reserva no formato dd/mm/yyyy:");
         String dataReserva = leitor.next();
 
         try{
