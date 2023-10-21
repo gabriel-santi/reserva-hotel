@@ -3,6 +3,9 @@ package domain;
 import exception.DataInicialInvalidaException;
 import exception.DataInvalidaException;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 public class Vigencia {
     Data dataInicio;
     Data dataFim;
@@ -24,5 +27,13 @@ public class Vigencia {
 
     boolean estaVigente(Data data) {
         return (dataInicio.dia.before(data.dia) && dataFim.dia.after(data.dia)) || dataInicio.dia.equals(data.dia) || dataFim.dia.equals(data.dia);
+    }
+
+    long getDias(){
+        LocalDate localDate1 = dataInicio.dia.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        LocalDate localDate2 = dataFim.dia.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+
+
+        return ChronoUnit.DAYS.between(localDate1, localDate2);
     }
 }

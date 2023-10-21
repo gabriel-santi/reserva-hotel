@@ -15,7 +15,7 @@ public class Reserva {
     public Reserva(Vigencia periodo, List<Hospede> hospedes){
         this.vigencia = periodo;
         this.hospedes = hospedes;
-        this.valor = 150 * hospedes.toArray().length;
+        this.valor = 150L * hospedes.toArray().length + (100 * periodo.getDias());
         this.cancelada = false;
         this.pago = false;
     }
